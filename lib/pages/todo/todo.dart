@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 
 
 import 'package:keep_grinding/db.dart';
-// import 'package:keep_grinding/pages/todo/task.dart';
+import 'package:keep_grinding/pages/todo/add_button/add_task.dart';
+import 'package:keep_grinding/pages/todo/add_button/icons_behavior/due_date_icon.dart';
+import 'package:keep_grinding/pages/todo/add_button/icons_behavior/notify_icon.dart';
+import 'package:keep_grinding/pages/todo/task.dart';
 import 'package:keep_grinding/util.dart';
 import 'package:numberpicker/numberpicker.dart';
 
@@ -23,8 +26,8 @@ const DEFAULT_BUTTON_TEXT = "Default Title";
 
 class _ToDoPageState extends State<ToDoPage> {
 
-  // List<Task> tasks_2 = [];
-  // Task current_task;
+  List<Task> tasks_2 = [];
+  Task currentTask = Task();
 
   List<String> titles = [];
   List<IconData> icons = [];
@@ -95,7 +98,11 @@ class _ToDoPageState extends State<ToDoPage> {
                         child: ListTile(
                           onTap: () {setState(() {});},
                           title: Text(tasks[index]),
-                          leading: Text(point[index]),
+                          subtitle: Text("2 Days remainings."),
+                          leading: Text(point[index], style: const TextStyle(
+                            fontSize: 25,
+                            color: Colors.blue,
+                          )),
                           trailing: IconButton(
                             icon: const Icon(Icons.delete),
                             onPressed: () { deleteTask(tasks[index]); },
@@ -112,7 +119,7 @@ class _ToDoPageState extends State<ToDoPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('SEE MORE'), // et ya pas de boutton history, il s'affiche auto
+                    Text('SEE MORE'), // Automatic while scrolling??? todo
                   ],
                 ),
               ),
@@ -120,96 +127,8 @@ class _ToDoPageState extends State<ToDoPage> {
           ),
         ),
 
-        // Fancy add button
-        Material(
-          color: Colors.transparent,
-          child: ListTile(
-            title: TextField(
-              controller: _controller,
-              onChanged: (value) {
-                setState(() {
-                  userInput = value;
-                });
-              },
-              decoration: const InputDecoration(
-                hintText: 'Enter subtitle here',
-              ),
-            ),
-            subtitle: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.notifications),
-                  color: _iconColor,
-                  onPressed: () {
-                    setState(() {
-                      _iconColor = _iconColor == Colors.blue ? Colors.grey : Colors.blue;
-                    });
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(Icons.calendar_month),
-                  color: _iconColor2,
-                  onPressed: () {
-                    setState(() {
-                      _iconColor2 = _iconColor2 == Colors.blue ? Colors.grey : Colors.blue;
-                    });
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(Icons.replay_rounded),
-                  color: _iconColor3,
-                  onPressed: () {
-                    setState(() {
-                      _iconColor3 = _iconColor3 == Colors.blue ? Colors.grey : Colors.blue;
-                    });
-                  },
-                ),
-              ],
-            ),
-            leading: SizedBox(
-              width: MediaQuery.of(context).size.width / 8,
-              height: MediaQuery.of(context).size.height,
-              child: NumberPicker(
-                textStyle: const TextStyle(
-                  fontSize: 30,
-                  color: Colors.blue,
-                ),
-                value: _currentValue,
-                infiniteLoop: true,
-                haptics: true,
-                minValue: 0,
-                maxValue: 99,
-                onChanged: (value) => setState(() => _currentValue = value),
-              ),
-            ),
-            trailing: IconButton(
-              icon: const Icon(Icons.add),
-              color: Colors.blue,
-              onPressed: () {
-                var dbHelper = DatabaseHelper();
-
-                userInput = userInput.isEmpty ? DEFAULT_BUTTON_TEXT : userInput;
-                dbHelper.addTaskSyncro(
-                  userInput,
-                  _currentValue - 1,
-                  '2024-12-01 18:00:00',
-                  '2024-12-01 18:00:00',
-                  false,
-                  false,
-                );
-
-                // Ajoute le titre et le sous-titre entrés
-                setState(() {
-                  _controller.clear();
-                  userInput = '';
-                });
-              },
-            ),
-          ),
-        ),
-
-
+        // The button to add task, present at the bottom of the creen, at the bottom of the bottom navigation bar
+        addButton(currentTask, context, setState, _currentValue, _controller, userInput),
 
       ],
     );
@@ -218,9 +137,3 @@ class _ToDoPageState extends State<ToDoPage> {
   }
 }
 
-
-
-
-
-
-// dark mode

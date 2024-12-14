@@ -46,6 +46,7 @@ void main() => runApp(const KeepGrinding());
 Future<void> initializeDatabase() async {
   var dbHelper = DatabaseHelper();
   await dbHelper.initDatabase('todo_list.db');
+  // await dbHelper.initDatabase('/data/data/uz.mycompany.myapp/databases/database.db');
   await dbHelper.tryCreateTaskTable();
   await dbHelper.tryCreateWishesTable();
   await dbHelper.tryCreateRecurringTasksTable();
@@ -125,3 +126,5 @@ class KeepGrinding extends StatelessWidget {
 // NON, swipe droite complete, swipe gauche DEL 
 // See more button
 //  xp
+//  daily gifl claimed
+// sql injection

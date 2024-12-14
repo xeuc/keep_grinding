@@ -1,4 +1,7 @@
 
+import 'dart:io';
+
+import 'package:path_provider/path_provider.dart';
 import 'package:sqlite3/sqlite3.dart';
 
 
@@ -14,7 +17,12 @@ class DatabaseHelper {
 
 
   // Method to initialize the database
-  Future<void> initDatabase(String dbPath) async {
+  Future<void> initDatabase(String dbName) async {
+
+    final Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    final String dbPath = '${documentsDirectory.path}/$dbName';
+
+
     _db = sqlite3.open(dbPath); // Initialize the SQLite database
 
   }
@@ -127,7 +135,7 @@ class DatabaseHelper {
   Future<void> addTask(String taskName, int pointReward, String remindDate, String dueDate, bool isRecuring, bool isDone) async {
     db.execute('''
       INSERT INTO tasks (name, point_reward, remind_date, due_date, is_recurring, done)
-      VALUES ("$taskName", $pointReward, "$remindDate", "$dueDate", $isRecuring, $isDone)
+      VALUES ('$taskName', $pointReward, '$remindDate', '$dueDate', $isRecuring, $isDone)
     ''');
   }
 
@@ -142,7 +150,7 @@ class DatabaseHelper {
   void addTaskSyncro(String taskName, int pointReward, String remindDate, String dueDate, bool isRecuring, bool isDone) async {
     db.execute('''
       INSERT INTO tasks (name, point_reward, remind_date, due_date, is_recurring, done)
-      VALUES ("$taskName", $pointReward, "$remindDate", "$dueDate", $isRecuring, $isDone)
+      VALUES ('$taskName', $pointReward, '$remindDate', '$dueDate', $isRecuring, $isDone)
     ''');
   }
 
@@ -278,7 +286,7 @@ class DatabaseHelper {
   void addWishesSyncro(String taskName, int pointReward, String remindDate, String dueDate, bool isRecuring, bool isDone) async {
     db.execute('''
       INSERT INTO wishes (name, point_reward, remind_date, due_date, is_recurring, done)
-      VALUES ("$taskName", $pointReward, "$remindDate", "$dueDate", $isRecuring, $isDone)
+      VALUES ('$taskName', $pointReward, '$remindDate', '$dueDate', $isRecuring, $isDone)
     ''');
   }
 

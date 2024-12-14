@@ -22,7 +22,6 @@ class DatabaseHelper {
     final Directory documentsDirectory = await getApplicationDocumentsDirectory();
     final String dbPath = '${documentsDirectory.path}/$dbName';
 
-
     _db = sqlite3.open(dbPath); // Initialize the SQLite database
 
   }
@@ -37,9 +36,8 @@ class DatabaseHelper {
     ''');
 
     // If the table exists, return early
-    if (tableExists.isNotEmpty) {
-      return;
-    }
+    if (tableExists.isNotEmpty) return;
+    
 
     // Create the table if it doesn't exist
     db.execute('''

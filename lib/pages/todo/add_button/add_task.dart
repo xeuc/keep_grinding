@@ -6,10 +6,13 @@ import 'package:keep_grinding/pages/todo/add_button/icons_behavior/due_date_icon
 import 'package:keep_grinding/pages/todo/add_button/icons_behavior/notify_icon.dart';
 import 'package:keep_grinding/pages/todo/add_button/icons_behavior/recurring_icon.dart';
 import 'package:keep_grinding/pages/todo/task.dart';
-import 'package:keep_grinding/pages/todo/todo.dart';
 import 'package:numberpicker/numberpicker.dart';
 
+var MAX_INT = 2147483647;
+
 Material addButton(Task currentTask, BuildContext context, setState, int _currentValue, _controller, userInput) {
+  var m_step = 1;
+  
   return Material(
     color: Colors.transparent,
     child: ListTile(
@@ -49,12 +52,22 @@ Material addButton(Task currentTask, BuildContext context, setState, int _curren
             fontSize: 30,
             color: Colors.blue,
           ),
-          value: _currentValue,
+          // itemCount: 4, // dont work
+          step: m_step,
+          textMapper: (numberText) => displayNumber2(numberText),
+          value: currentTask.pointReward,
           infiniteLoop: true,
           haptics: true,
           minValue: 0,
-          maxValue: 99,
-          onChanged: (value) => setState(() => _currentValue = value),
+          maxValue: MAX_INT,
+
+          onChanged: (value) => setState(() => {
+            currentTask.pointReward = value,
+
+              // Calculer la valeur de m_step en fonction de l'échelle de `value`
+
+            m_step = calculateStep(value),
+          }),
         ),
       ),
 
@@ -81,4 +94,66 @@ Material addButton(Task currentTask, BuildContext context, setState, int _curren
   );
 }
 
+const suffixes = ["", "K", "M", "B", "T"];
 
+
+
+
+String displayNumber(String numberText) {
+
+  var len = numberText.length;
+
+  var quotient = len ~/ 3;
+  var remainder = len % 3;
+
+  // Trouver le nombre à afficher
+  String numberToDisplay;
+  if (remainder == 0) {
+    numberToDisplay = numberText.substring(0, 3); // Prendre les 3 premiers chiffres si aucun reste
+    quotient--; // Ajuster l'indice du suffixe
+  } else {
+    numberToDisplay = numberText.substring(0, remainder); // Prendre les chiffres restants
+  }
+
+  // Ajouter le suffixe correspondant
+  var suffix = (quotient >= 0 && quotient < suffixes.length) ? suffixes[quotient] : "";
+
+  // Retourner le résultat final
+  return "$numberToDisplay$suffix";
+}
+
+
+
+String displayNumber2(String numberText) {
+  var len = numberText.length;
+  // len = len > MAX_INT.toString().length ? MAX_INT.toString().length : len;
+  var quotient = (len - 1) ~/ 3;
+  var remainder = len % 3;
+  // r = 0 show 3 digit, 1 show 1, 2 show 2.
+  // not performant way to do it but funny :D
+  var amountDigitToDisplay = remainder + 3*(remainder-1)*(remainder-2)/2;
+  
+  var numberToDisplay = numberText.substring(0, amountDigitToDisplay.toInt()); 
+
+  // suffix if k for kilo, M for mili, etc..
+  var suffix = suffixes[quotient];
+
+  // return result like "2k"
+  return "$numberToDisplay$suffix";
+}
+
+            int calculateStep(int value) {
+              if (value < 100) {
+                return 1; // Step de 1 pour les valeurs de 1 à 99
+              } else {
+                // Trouver l'ordre de grandeur
+                int magnitude = (value / 10).floor(); // Réduit d'un facteur 10 à chaque étape
+                int stepBase = 1;
+                
+                while (magnitude > 0) {
+                  magnitude ~/= 10; // Réduit encore pour trouver combien de zéros
+                  stepBase *= 10;   // Multiplie par 10 pour chaque ordre de grandeur
+                }
+                return stepBase;
+              }
+            }

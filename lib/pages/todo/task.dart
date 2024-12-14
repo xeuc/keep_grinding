@@ -13,7 +13,7 @@ class Task {
   Task({
     this.id = 0,
     this.name = "Default task title",
-    this.pointReward = 0,
+    this.pointReward = 5,
     this.isCompleted = false,
 
     DateTime? notifyMeDate,

@@ -26,6 +26,7 @@ Row notifyButton(Task currentTask, BuildContext context, setState) {
             context: context,
           );
           FocusScope.of(context).unfocus();
+          print(selectedTime);
 
 
           // Si une date est choisie, met à jour l'état

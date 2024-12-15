@@ -7,11 +7,8 @@ import 'package:flutter/material.dart';
 
 import 'package:keep_grinding/db.dart';
 import 'package:keep_grinding/pages/todo/add_button/add_task.dart';
-import 'package:keep_grinding/pages/todo/add_button/icons_behavior/due_date_icon.dart';
-import 'package:keep_grinding/pages/todo/add_button/icons_behavior/notify_icon.dart';
 import 'package:keep_grinding/pages/todo/task.dart';
 import 'package:keep_grinding/util.dart';
-import 'package:numberpicker/numberpicker.dart';
 
 
 class ToDoPage extends StatefulWidget {
@@ -33,11 +30,8 @@ class _ToDoPageState extends State<ToDoPage> {
   List<IconData> icons = [];
   List<String> point = [];
 
-  Color _iconColor = Colors.grey;
-  Color _iconColor2 = Colors.grey;
-  Color _iconColor3 = Colors.grey;
 
-  int _currentValue = 3;
+  final int _currentValue = 3;
   String userInput = DEFAULT_BUTTON_TEXT;
   
   final TextEditingController _controller = TextEditingController();
@@ -98,7 +92,7 @@ class _ToDoPageState extends State<ToDoPage> {
                         child: ListTile(
                           onTap: () {setState(() {});},
                           title: Text(tasks[index]),
-                          subtitle: Text("2 Days remainings."),
+                          subtitle: const Text("2 Days remainings."),
                           leading: Text(point[index], style: const TextStyle(
                             fontSize: 25,
                             color: Colors.blue,

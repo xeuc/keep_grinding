@@ -7,6 +7,7 @@ Row recurringButton(Task currentTask, BuildContext context, setState) {
   
   return Row(
     children: [
+      Text(selectedFrequency ?? "No Frequency Selected"),
       IconButton(
         icon: const Icon(Icons.replay_rounded),
         color: currentTask.getRecuringIconColor(),
@@ -35,7 +36,7 @@ showDialog(
                             });
                             Navigator.of(context).pop();
                           },
-                          child: Text('Every Minute'),
+                          child: const Text('Every Minute'),
                         ),
                         TextButton(
                           onPressed: () {
@@ -44,7 +45,7 @@ showDialog(
                             });
                             Navigator.of(context).pop();
                           },
-                          child: Text('Every Hour'),
+                          child: const Text('Every Hour'),
                         ),
                         TextButton(
                           onPressed: () {
@@ -53,7 +54,7 @@ showDialog(
                             });
                             Navigator.of(context).pop();
                           },
-                          child: Text('Every Day'),
+                          child: const Text('Every Day'),
                         ),
                         TextButton(
                           onPressed: () {
@@ -62,7 +63,7 @@ showDialog(
                             });
                             Navigator.of(context).pop();
                           },
-                          child: Text('Every Month'),
+                          child: const Text('Every Month'),
                         ),
                         TextButton(
                           onPressed: () {
@@ -71,15 +72,20 @@ showDialog(
                             });
                             Navigator.of(context).pop();
                           },
-                          child: Text('Every Year'),
+                          child: const Text('Every Year'),
                         ),
                       ],
                     ),
                   ),
                 );
+
               },
             );
               
+
+
+
+
 
             currentTask.setRecuringIconColor(!currentTask.getIsRecuringStatus());
           });

@@ -1,5 +1,7 @@
 
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:keep_grinding/db.dart';
 import 'package:keep_grinding/pages/todo/add_button/icons_behavior/due_date_icon.dart';
@@ -11,8 +13,6 @@ import 'package:numberpicker/numberpicker.dart';
 var MAX_INT = 2147483647;
 
 Material addButton(Task currentTask, BuildContext context, setState, int _currentValue, _controller, userInput) {
-  var m_step = 1;
-  
   return Material(
     color: Colors.transparent,
     child: ListTile(
@@ -53,21 +53,46 @@ Material addButton(Task currentTask, BuildContext context, setState, int _curren
             color: Colors.blue,
           ),
           // itemCount: 4, // dont work
-          step: m_step,
           textMapper: (numberText) => displayNumber2(numberText),
           value: currentTask.pointReward,
-          infiniteLoop: true,
+          step: currentTask.numberPickerStep,
+          infiniteLoop: false,
           haptics: true,
           minValue: 0,
           maxValue: MAX_INT,
 
-          onChanged: (value) => setState(() => {
-            currentTask.pointReward = value,
+          // onChanged: (value) => setState(() => {
+          //   currentTask.pointReward = value,
+          //   mStep = calculateStep(value),
+          // }),
+          onChanged: (value) {
+            // print("value: " + value.toString());
 
-              // Calculer la valeur de m_step en fonction de l'échelle de `value`
+            currentTask.pointReward = value;
+            // currentTask.numberPickerStep = calculateStep(value);
+            // currentTask.pointReward = value + currentTask.numberPickerStep;
 
-            m_step = calculateStep(value),
-          }),
+            // TODO: resolve the bug that changing both walue and step here make NumberPicker crazy
+            // and directly goes to the max number in a fraction of second. 
+
+            // currentTask.backupStep = value;
+            setState(() {});
+            // setState(() {
+            //   currentTask.pointReward = value;
+            //   // if (currentTask.isStepUpdated) {
+            //   //   currentTask.isStepUpdated = false;
+            //   //   return;
+            //   // }
+            //   var newStep = calculateStep(value);
+            //   currentTask.backupStep
+            //   currentTask.numberPickerStep = newStep;
+            //   currentTask.isStepUpdated = true;
+            // });
+          },
+          
+          
+
+          
         ),
       ),
 
@@ -142,18 +167,13 @@ String displayNumber2(String numberText) {
   return "$numberToDisplay$suffix";
 }
 
-            int calculateStep(int value) {
-              if (value < 100) {
-                return 1; // Step de 1 pour les valeurs de 1 à 99
-              } else {
-                // Trouver l'ordre de grandeur
-                int magnitude = (value / 10).floor(); // Réduit d'un facteur 10 à chaque étape
-                int stepBase = 1;
-                
-                while (magnitude > 0) {
-                  magnitude ~/= 10; // Réduit encore pour trouver combien de zéros
-                  stepBase *= 10;   // Multiplie par 10 pour chaque ordre de grandeur
-                }
-                return stepBase;
-              }
-            }
+
+int calculateStep(int value) {
+  var stringValue = value.toString();
+  var stepBase = /*int.parse(stringValue[0]) **/ pow(10, stringValue.length - 1).toInt();
+  print("---BEGIN-------------------------------------------");
+  print("stringValue: " + stringValue);
+  print("stepBase: " + stepBase.toString());
+  print("---END-------------------------------------------");
+  return stepBase;
+}

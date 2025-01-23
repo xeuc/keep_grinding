@@ -7,7 +7,7 @@ Row recurringButton(Task currentTask, BuildContext context, setState) {
   
   return Row(
     children: [
-      Text(selectedFrequency ?? "No Frequency Selected"),
+      Text(selectedFrequency ?? ""), // Todo remove
       IconButton(
         icon: const Icon(Icons.replay_rounded),
         color: currentTask.getRecuringIconColor(),

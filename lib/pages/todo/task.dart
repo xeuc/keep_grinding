@@ -9,16 +9,22 @@ class Task {
   DateTime notifyMeDate;
   DateTime dueDate;
   bool isRecurring;
+  int numberPickerStep;
+  bool isStepUpdated;
+  int backupStep;
 
   Task({
     this.id = 0,
     this.name = "Default task title",
-    this.pointReward = 5,
+    this.pointReward = 1,
     this.isCompleted = false,
 
     DateTime? notifyMeDate,
     DateTime? dueDate,
     this.isRecurring = false,
+    this.numberPickerStep = 1,
+    this.isStepUpdated = false,
+    this.backupStep = 1,
 
   })  : notifyMeDate = notifyMeDate ?? DateTime.utc(0),
         dueDate = dueDate ?? DateTime.utc(0);

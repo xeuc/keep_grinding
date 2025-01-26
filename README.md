@@ -3,7 +3,7 @@
 ## Intro
 
 A Flutter project that gamifies life by awarding points for completing real-life tasks the user set for himself.
-With the points earned, the user can reward himself by purchasing items or allowing yourself to do certain activities.
+With the points earned, the user can reward himself by purchasing items or allowing himself to do certain activities.
 
 ![alt text](image.png)
 

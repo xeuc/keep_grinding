@@ -2,20 +2,22 @@
 
 ## Intro
 
-A Flutter project that gamifies life by awarding points for completing real-life tasks you've set for yourself. With the points earned, you can reward yourself by purchasing items or allowing yourself to do certain activities.
+A Flutter project that gamifies life by awarding points for completing real-life tasks the user set for himself.
+With the points earned, the user can reward himself by purchasing items or allowing yourself to do certain activities.
 
 ![alt text](image.png)
 
 Excpected Behavior:
-- User Create one (or more) ToDo on the app (with n point reward) like "Send Mail to Mark" or "Do some sport"
-- User complete the task in real life and the check the task's box on the app => Gain n point
-- User can allow himself to buy/do something like "a shot of vodka at 8 a.m." with theses n points
+- User create one (or more) "ToDo" on the app like "Send Mail to Mark" or "Do some sport" for n point
+- User also create a "Wish" on the app like "I want a galaxy tab, the one that cost 2k$" for n point also
+- /!\ "ToDo" **reward** the user points, and "Wish" **cost** the user points
+- User complete the task in real life and the check the ToDo's complete box on the app => Gain n point :D
+- With theses n points, user can allow himself to buy or do something from his "Wish" list like "drink a shot of vodka at 8 a.m."
 
 ## Why using that ?
 
-This is an app to **combat procrastination** by focusing on rewards rather than deadline pressure, (inspired by The Good Place, where rewards are eventually forgotten, and then people do what they need automatically).
-It also helps **curb impulsive buying** by limiting purchases to points earned through completing a to-do list.
-
+1) This is an app to **combat procrastination** by focusing on rewards rather than deadline pressure, (inspired by The Good Place, where rewards are eventually forgotten).
+2) It also helps **curb impulsive buying** by limiting purchases to points earned through completing a to-do list.
 
 ## Getting Started
 

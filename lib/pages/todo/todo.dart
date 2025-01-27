@@ -56,6 +56,12 @@ class _ToDoPageState extends State<ToDoPage> {
     loadTasks(); // Recharge les tâches pour mettre à jour l'affichage
   }
 
+  void resetCurrentTask() {
+    setState(() {
+      currentTask = Task(); // Réinitialise currentTask
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     loadTasks();
@@ -122,7 +128,7 @@ class _ToDoPageState extends State<ToDoPage> {
         ),
 
         // The button to add task, present at the bottom of the creen, at the bottom of the bottom navigation bar
-        addButton(currentTask, context, setState, _currentValue, _controller, userInput),
+        addButton(resetCurrentTask, currentTask, context, setState, _currentValue, _controller, userInput),
 
       ],
     );

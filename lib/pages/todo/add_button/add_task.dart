@@ -12,7 +12,7 @@ import 'package:numberpicker/numberpicker.dart';
 
 var MAX_INT = 2147483647;
 
-Material addButton(Task currentTask, BuildContext context, setState, int _currentValue, _controller, userInput) {
+Material addButton(VoidCallback resetCurrentTask, Task currentTask, BuildContext context, setState, int _currentValue, _controller, userInput) {
   return Material(
     color: Colors.transparent,
     child: ListTile(
@@ -96,6 +96,8 @@ Material addButton(Task currentTask, BuildContext context, setState, int _curren
         ),
       ),
 
+      // TODO: create the "quick win button"
+      // dbHelper.addTaskSyncro(currentTask.name, currentTask.pointReward - 1, now, "", false, true);
       // Blue "plus" add button
       trailing: IconButton(
         icon: const Icon(Icons.add),
@@ -104,14 +106,13 @@ Material addButton(Task currentTask, BuildContext context, setState, int _curren
           FocusScope.of(context).unfocus();
           var dbHelper = DatabaseHelper();
           // userInput = userInput.isEmpty ? DEFAULT_BUTTON_TEXT : userInput;
-          dbHelper.addTaskSyncro( currentTask.name, _currentValue - 1,
-            '2024-12-01 18:00:00', '2024-12-01 18:00:00', false, false,
-          );
+          dbHelper.addTaskSyncro(currentTask.name, currentTask.pointReward - 1,
+            '2024-12-01 18:00:00', '2024-12-01 18:00:00', false, false);
 
           // Ajoute le titre et le sous-titre entrés
           setState(() {
             _controller.clear();
-            userInput = '';
+            resetCurrentTask();
           });
         },
       ),

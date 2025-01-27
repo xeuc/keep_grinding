@@ -181,7 +181,7 @@ class DatabaseHelper {
   
   List<String> getPointsNameSync() {
     List<String> names = [];
-    final ResultSet resultSet = db.select('SELECT * FROM tasks;'); // todo: not "SELECT * FROM tasks;" but "SELECT point_reward FROM tasks;"
+    final ResultSet resultSet = db.select('SELECT * FROM tasks ORDER BY id DESC;'); // todo: not "SELECT * FROM tasks;" but "SELECT point_reward FROM tasks;"
     for (final Row row in resultSet) {
       names.add(row['point_reward'].toString());
     }

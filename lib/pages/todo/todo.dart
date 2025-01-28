@@ -21,7 +21,56 @@ class ToDoPage extends StatefulWidget {
 const DEFAULT_BUTTON_TEXT = "Default Title";
 
 
-class _ToDoPageState extends State<ToDoPage> {
+class _ToDoPageState extends State<ToDoPage> with WidgetsBindingObserver {
+
+    @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    ScheduleManager();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      ScheduleManager();
+    }
+  }
+
+  void ScheduleManager() async {
+    var dbHelper = DatabaseHelper();
+    var remindDates = dbHelper.getRemindDateNameSync();
+    DateTime now = DateTime.now();
+
+    for (var dateString in remindDates) {
+      DateTime targetDate = DateTime.parse(dateString);
+
+      if (now.isAfter(targetDate)) {
+        setState(() {
+          remindUser();
+        });
+        return;
+      }
+
+      Duration delay = targetDate.difference(now);
+      Future.delayed(delay, () {
+        setState(() {
+          remindUser();
+        });
+      });
+    }
+  }
+
+  void remindUser() {
+    // when schedule time arise
+    // TODO: end notif to user
+  }
 
   List<Task> tasks_2 = [];
   Task currentTask = Task();

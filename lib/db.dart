@@ -188,6 +188,15 @@ class DatabaseHelper {
     return names;
   }
 
+  List<String> getRemindDateNameSync() {
+    List<String> names = [];
+    final ResultSet resultSet = db.select('SELECT * FROM tasks ORDER BY id DESC;'); // todo: not "SELECT * FROM tasks;" but "SELECT point_reward FROM tasks;"
+    for (final Row row in resultSet) {
+      names.add(row['remind_date'].toString());
+    }
+    return names;
+  }
+
   Future<void> completeTask(String taskName) async {
     db.execute('''UPDATE tasks SET done = 1 WHERE name = ?;''', [taskName]);
   }

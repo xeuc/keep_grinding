@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 
 import 'package:keep_grinding/db.dart';
+import 'package:keep_grinding/notification_service.dart';
 import 'package:keep_grinding/pages/todo/add_button/add_task.dart';
 import 'package:keep_grinding/pages/todo/task.dart';
 import 'package:keep_grinding/util.dart';
@@ -70,6 +71,8 @@ class _ToDoPageState extends State<ToDoPage> with WidgetsBindingObserver {
   void remindUser() {
     // when schedule time arise
     // TODO: end notif to user
+    NotificationService().showNotification("notifTest", "I am a notification");
+
   }
 
   List<Task> tasks_2 = [];

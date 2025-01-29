@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:keep_grinding/db.dart';
+import 'package:keep_grinding/notification_service.dart';
 
 import 'pages/home.dart';
 
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 // |V| _  o __ 
 // | |(_| | | |
 
-void main() => runApp(const KeepGrinding());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().init();
+  runApp(const KeepGrinding());
+}
 
 // class KeepGrinding extends StatelessWidget {
 //   const KeepGrinding({super.key});

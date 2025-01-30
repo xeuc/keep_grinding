@@ -2,8 +2,8 @@
 
 ## Intro
 
-A Flutter project that gamifies life by awarding points for completing real-life tasks the user set for himself.
-With the points earned, the user can reward himself by purchasing items or allowing himself to do certain activities.
+A Flutter project that gamifies life by awarding points for completing real-life tasks the user set on the app.
+With the points earned, the user can reward himself by purchasing items or allowing to do certain activities.
 
 ![alt text](image.png)
 
@@ -16,7 +16,7 @@ Excpected Behavior:
 
 ## Why using that ?
 
-1) This is an app to **combat procrastination** by focusing on rewards rather than deadline pressure, (inspired by The Good Place, where rewards are eventually forgotten).
+1) This is an app to **combat procrastination** by focusing on rewards rather than deadline pressure (inspired by The Good Place, where rewards are eventually forgotten).
 2) It also helps **curb impulsive buying** by limiting purchases to points earned through completing a to-do list.
 
 ## Getting Started

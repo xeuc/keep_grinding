@@ -107,7 +107,7 @@ Material addButton(VoidCallback resetCurrentTask, Task currentTask, BuildContext
           var dbHelper = DatabaseHelper();
           // userInput = userInput.isEmpty ? DEFAULT_BUTTON_TEXT : userInput;
           dbHelper.addTaskSyncro(currentTask.name, currentTask.pointReward - 1,
-            '2024-12-01 18:00:00', '2024-12-01 18:00:00', false, false);
+            currentTask.notifyMeDate.toString(), currentTask.dueDate.toString(), false, false);
 
           // Ajoute le titre et le sous-titre entrés
           setState(() {
